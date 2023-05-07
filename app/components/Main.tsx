@@ -4,6 +4,7 @@ import { useState } from "react";
 import { imagesType } from "./types";
 import Create from "./Create";
 import Generate from "./Generate";
+import Modal from "./Modal";
 
 const testImages: imagesType[] = [
   {
@@ -34,8 +35,21 @@ const Main = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [modalData, setModalData] = useState<imagesType | null>(null);
 
+  const closeModal = () => {
+    setModalOpen(false);
+  };
+
   return (
     <div className="grid grid-cols-5 gap-4">
+      {/* モーダル */}
+      {modalData && (
+        <Modal
+          isOpen={modalOpen}
+          closeModal={closeModal}
+          modalData={modalData}
+        />
+      )}
+
       <div className="col-span-2">
         {/* 画像生成フォーム */}
         <Create

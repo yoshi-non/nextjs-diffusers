@@ -21,3 +21,9 @@ export type GenerateType = {
   setModalData: (data: imagesType) => void;
   setModalOpen: (isOpen: boolean) => void;
 };
+
+export type ModalProps = {
+  isOpen: boolean;
+  closeModal: () => void;
+  modalData: imagesType;
+};
