@@ -4,6 +4,7 @@ import { useRef, useState } from "react";
 import { CreateType } from "./types";
 import Slider from "rc-slider";
 import "rc-slider/assets/index.css";
+import JSZip from "jszip";
 
 const SIZE_OPTIONS = [
   { ratio: "7:4", width: 896, height: 512 },
@@ -72,15 +73,70 @@ const Create = ({ loading, setLoading, setImages }: CreateType) => {
       }
     }
 
-    console.log("prompt", prompt);
-    console.log("negative", negative);
-    console.log("width", width);
-    console.log("height", height);
-    console.log("ratio", ratio);
-    console.log("scale", scale);
-    console.log("steps", steps);
-    console.log("seedList", seedList);
+    try {
+      const body = {
+        prompt,
+        negative,
+        width,
+        height,
+        scale,
+        steps,
+        seedList,
+      };
 
+      // 画像生成API呼び出し
+      const response = await fetch("http://localhost:8000/api/generate/", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(body),
+      });
+
+      // 画像生成APIエラー
+      if (!response.ok) {
+        const errorData = await response.json();
+        setError(`画像が生成できませんでした: ${errorData.detail}`);
+        setLoading(false);
+        return;
+      }
+
+      // 画像生成API成功
+      const zipBlob = await response.blob();
+      // zipファイルを解凍
+      const zipArrayBuffer = await zipBlob.arrayBuffer();
+      // zipファイルを読み込み
+      const zip = await JSZip.loadAsync(zipArrayBuffer);
+
+      // 画像データを作成
+      const imageDataList = [];
+      // zipファイル内の画像を取得
+      for (const [index, fileName] of Object.entries(Object.keys(zip.files))) {
+        // 画像ファイルを取得
+        const imageFile = zip.file(fileName);
+        // 画像ファイルをblobに変換
+        const imageData = await imageFile!.async("blob");
+        // blobをURLに変換
+        const imageObjectURL = URL.createObjectURL(imageData);
+
+        // 画像データを作成
+        imageDataList.push({
+          imageSrc: imageObjectURL,
+          prompt,
+          ratio,
+          negative,
+          width,
+          height,
+          seed: seedList[parseInt(index, 10)],
+          steps,
+        });
+      }
+
+      // 画像データをセット
+      setImages(imageDataList);
+    } catch (error) {
+      alert(error);
+    }
     setLoading(false);
   };
 

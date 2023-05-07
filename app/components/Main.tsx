@@ -63,7 +63,7 @@ const Main = () => {
         {/* 生成画像 */}
         <Generate
           loading={loading}
-          images={testImages}
+          images={images}
           setModalData={setModalData}
           setModalOpen={setModalOpen}
         />
