@@ -1,4 +1,6 @@
 # Create Image of AI app
+Stable Diffusionを利用したAI画像生成アプリ
+※自身のCPUを使用するためスペックによっては動きません。
 
 ## Frontend(app)
 
@@ -62,9 +64,9 @@ pip3 install -r requirements.txt
 uvicorn main:app --reload
 ```
 
-(https://huggingface.co/andite/anything-v4.0/tree/main)ここからanything-v4.0.vae.ptをダウンロードしてvaeフォルダに入れています。
+[https://huggingface.co/andite/anything-v4.0/tree/main]ここからanything-v4.0.vae.ptをダウンロードしてvaeフォルダに入れています。
 
-(https://github.com/huggingface/diffusers/blob/main/scripts/convert_vae_pt_to_diffusers.py)ここからvaeをコンバートします。
+[https://github.com/huggingface/diffusers/blob/main/scripts/convert_vae_pt_to_diffusers.py]ここからvaeをコンバートします。
 
 ```bash
 python ./convert_vae_pt_to_diffusers.py --vae_pt_path ./vae/anything-v4.0.vae.pt --dump_path ./vae/anythingv4_vae
