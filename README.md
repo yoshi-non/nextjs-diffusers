@@ -64,7 +64,7 @@ pip3 install -r requirements.txt
 uvicorn main:app --reload
 ```
 
-(https://huggingface.co/andite/anything-v4.0/tree/main)anything-v4.0.vae.ptをダウンロードしてvaeフォルダに入れています。
+[ここから](https://huggingface.co/andite/anything-v4.0/tree/main)anything-v4.0.vae.ptをダウンロードしてvaeフォルダに入れています。
 
 [ここから](https://github.com/huggingface/diffusers/blob/main/scripts/convert_vae_pt_to_diffusers.py)vaeをコンバートします。
 
