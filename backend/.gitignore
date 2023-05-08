@@ -2,3 +2,5 @@
 outputs
 models
 __pycache__
+*.bin
+*.pt

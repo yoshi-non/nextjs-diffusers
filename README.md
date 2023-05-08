@@ -58,5 +58,22 @@ pip3 install -r requirements.txt
 ```
 
 ```bash
+# サーバ起動
 uvicorn main:app --reload
+```
+
+(https://huggingface.co/andite/anything-v4.0/tree/main)ここからanything-v4.0.vae.ptをダウンロードしてvaeフォルダに入れています。
+
+(https://github.com/huggingface/diffusers/blob/main/scripts/convert_vae_pt_to_diffusers.py)ここからvaeをコンバートします。
+
+```bash
+python ./convert_vae_pt_to_diffusers.py --vae_pt_path ./vae/anything-v4.0.vae.pt --dump_path ./vae/anythingv4_vae
+```
+
+### uvicornの強制終了(Windows)
+```bash
+tasklist | findstr "uvicorn"
+# 以下のように返ってきたとする
+# uvicorn.exe  21872 Console  1 2,752 K
+taskkill /PID 21872 /F
 ```
