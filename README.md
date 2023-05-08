@@ -68,6 +68,14 @@ uvicorn main:app --reload
 
 [https://github.com/huggingface/diffusers/blob/main/scripts/convert_vae_pt_to_diffusers.py]ここからvaeをコンバートします。
 
+```:vae関連のディレクトリ構造
+vae
+├── anythingv4_vae
+|     ├── config.json
+|     └── diffusion_pytorch_model.bin
+└── anything-v4.0.vae.pt
+```
+
 ```bash
 python ./convert_vae_pt_to_diffusers.py --vae_pt_path ./vae/anything-v4.0.vae.pt --dump_path ./vae/anythingv4_vae
 ```
